@@ -19,7 +19,7 @@ class _WhoseTurn extends State<WhoseTurn> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text('Teraz jest runda ',
-                style: TextStyle(fontSize: 25.0, fontFamily: 'Quicksand')),
+                style: Theme.of(context).textTheme.body1,),
             widget.turn0 == 1
                 ? Icon(Icons.tonality, color: Colors.green, size: 30.0)
                 : Icon(

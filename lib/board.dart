@@ -80,7 +80,7 @@ class _BoardState extends State<Board> {
             ],
           ),
           Container(
-            margin: EdgeInsets.only(top: 20.0),
+            margin: EdgeInsets.only(top: 40.0),
             child:
           RaisedButton(
             onPressed: (){
@@ -89,10 +89,11 @@ class _BoardState extends State<Board> {
                 board.fillRange(0, 9, 0);
               });
             },
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50.0)),
             color: Colors.red[300],
-            padding: EdgeInsets.all(8.0),
-            textColor: Colors.white,
-            highlightColor: Colors.red,
+            padding: EdgeInsets.only(top: 8.0, right: 15.0, bottom: 8.0, left: 15.0),
+            textColor: Colors.grey[100],
+            highlightColor: Colors.red[400],
             child: Text('Nowa gra', style: TextStyle(fontSize: 25.0, fontFamily: 'Quicksand'),),
           )
            ),

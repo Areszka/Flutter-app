@@ -22,21 +22,24 @@ class _WinnerState extends State<Winner> {
                 ? Container(
                     child: Row(children: <Widget>[
                     Icon(Icons.tonality, color: Colors.green, size: 30.0),
-                    Text(' wygrało grę ',
-                        style:
-                            TextStyle(fontSize: 25.0, fontFamily: 'Quicksand'))
+                    Text(
+                      ' wygrało grę ',
+                      style: Theme.of(context).textTheme.body1,
+                    )
                   ]))
                 : widget.winner == 1
                     ? Container(
                         child: Row(children: <Widget>[
                         Icon(Icons.clear, color: Colors.red, size: 30.0),
-                        Text(' wygrał grę ',
-                            style: TextStyle(
-                                fontSize: 25.0, fontFamily: 'Quicksand'))
+                        Text(
+                          ' wygrał grę ',
+                          style: Theme.of(context).textTheme.body1,
+                        )
                       ]))
-                    : Text('Nikt nie wygrał',
-                        style:
-                            TextStyle(fontSize: 25.0, fontFamily: 'Quicksand'))
+                    : Text(
+                        'Nikt nie wygrał',
+                        style: Theme.of(context).textTheme.body1,
+                      )
           ],
         ));
   }
