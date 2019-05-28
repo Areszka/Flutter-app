@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 class Square extends StatefulWidget {
   final bool _borderBottom, _borderRight;
   final int id;
+  final int board;
   final Function(int) nextTurn;
 
-  Square(this._borderBottom, this._borderRight, this.nextTurn, this.id);
+  Square(this._borderBottom, this._borderRight, this.nextTurn, this.id, this.board);
   @override
   _SquareBuild createState() => _SquareBuild(_borderBottom, _borderRight);
 }
 
 class _SquareBuild extends State<Square> {
-  String _squareInside = "empty";
 
   final bool bB, bR;
 
@@ -20,12 +20,8 @@ class _SquareBuild extends State<Square> {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
-          if (_squareInside == 'empty') {
-          bool turn0 = widget.nextTurn(widget.id);
-          
-          setState(() {
-              turn0 ? _squareInside = 'circle' : _squareInside = 'cross';
-          });
+          if (widget.board == 0) {
+          widget.nextTurn(widget.id);
           }
         },
         child: Container(
@@ -37,9 +33,9 @@ class _SquareBuild extends State<Square> {
                 right: BorderSide(color: bR ? Colors.black : Colors.white),
               ),
             ),
-            child: _squareInside == 'cross'
+            child: widget.board == 1
                 ? Icon(Icons.clear, color: Colors.red, size: 70.0)
-                : _squareInside == 'circle'
+                : widget.board == 2
                     ? Icon(Icons.tonality, color: Colors.green, size: 70.0)
                     :Text('')));
   }
