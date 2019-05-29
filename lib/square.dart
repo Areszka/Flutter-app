@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './cross.dart';
 
 class Square extends StatefulWidget {
   final bool _borderBottom, _borderRight;
@@ -12,7 +13,6 @@ class Square extends StatefulWidget {
 }
 
 class _SquareBuild extends State<Square> {
-
   final bool bB, bR;
 
   _SquareBuild(this.bB, this.bR);
@@ -21,22 +21,19 @@ class _SquareBuild extends State<Square> {
     return GestureDetector(
         onTap: () {
           if (widget.board == 0) {
-          widget.nextTurn(widget.id);
+            widget.nextTurn(widget.id);
           }
         },
         child: Container(
             height: 100.0,
             width: 100.0,
+            padding: EdgeInsets.all(25.0),
             decoration: BoxDecoration(
               border: Border(
                 bottom: BorderSide(color: bB ? Colors.black : Colors.white),
                 right: BorderSide(color: bR ? Colors.black : Colors.white),
               ),
             ),
-            child: widget.board == 1
-                ? Icon(Icons.clear, color: Colors.red, size: 70.0)
-                : widget.board == 2
-                    ? Icon(Icons.tonality, color: Colors.green, size: 70.0)
-                    :Text('')));
+            child: widget.board != 0 ? Shape(widget.board) : Text('')));
   }
 }

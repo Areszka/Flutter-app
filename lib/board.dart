@@ -2,15 +2,22 @@ import 'package:flutter/material.dart';
 import './square.dart';
 import './WhoseTurn.dart';
 import './winner.dart';
+import 'dart:math';
 
 class Board extends StatefulWidget {
   _BoardState createState() => _BoardState();
 }
 
 class _BoardState extends State<Board> {
-  int turn0 = 1, winner = 0;
+  final _random = Random();
+  int turn0, winner = 0;
+  
   List<int> board = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
+  void initState() {
+    turn0 = _random.nextInt(2) + 1;
+    super.initState();
+  }
   isRowEqual(a, b, c) {
     return board[a] == board[b] && board[a] == board[c] && board[a] != 0;
   }
@@ -40,7 +47,6 @@ class _BoardState extends State<Board> {
       } else if (!board.contains(0)) {
         winner = 3;
       }
-      print(board);
     });
     }
   }
@@ -85,6 +91,7 @@ class _BoardState extends State<Board> {
           RaisedButton(
             onPressed: (){
               setState(() {
+                turn0 = _random.nextInt(2) + 1;
                 winner = 0;
                 board.fillRange(0, 9, 0);
               });
@@ -100,4 +107,3 @@ class _BoardState extends State<Board> {
         ]);
   }
 }
-
