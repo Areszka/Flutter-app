@@ -5,6 +5,9 @@ import './winner.dart';
 import 'dart:math';
 
 class Board extends StatefulWidget {
+final String firstPlayer, secondPlayer;
+Board(this.firstPlayer, this.secondPlayer);
+
   _BoardState createState() => _BoardState();
 }
 
@@ -57,7 +60,7 @@ class _BoardState extends State<Board> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          winner != 0 ? Winner(winner) : WhoseTurn(turn0),
+          winner != 0 ? Winner(winner, widget.firstPlayer, widget.secondPlayer) : WhoseTurn(turn0),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -90,6 +93,7 @@ class _BoardState extends State<Board> {
             child:
           RaisedButton(
             onPressed: (){
+            Navigator.pop(context);
               setState(() {
                 turn0 = _random.nextInt(2) + 1;
                 winner = 0;

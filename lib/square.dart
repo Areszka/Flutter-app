@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './cross.dart';
+import './shape-animation.dart';
 
 class Square extends StatefulWidget {
   final bool _borderBottom, _borderRight;

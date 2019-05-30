@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import './circlePainter.dart';
+import './crossPainter.dart';
+
 class WhoseTurn extends StatefulWidget {
   final int turn0;
 
@@ -18,15 +21,15 @@ class _WhoseTurn extends State<WhoseTurn> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('Teraz jest runda ',
-                style: Theme.of(context).textTheme.body1,),
-            widget.turn0 == 1
-                ? Icon(Icons.tonality, color: Colors.green, size: 30.0)
-                : Icon(
-                    Icons.clear,
-                    color: Colors.red,
-                    size: 30.0,
-                  ),
+            Text(
+              'Teraz jest runda  ',
+              style: Theme.of(context).textTheme.body1,
+            ),
+            CustomPaint(
+              size: Size(25.0, 25.0),
+              painter:
+                  widget.turn0 == 1 ? CirclePainter(1, 5) : CrossPainter(1, 5),
+            )
           ],
         ));
   }

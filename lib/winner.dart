@@ -2,45 +2,24 @@ import 'package:flutter/material.dart';
 
 class Winner extends StatefulWidget {
   final int winner;
+  final String firstPlayer, secondPlayer;
 
-  Winner(this.winner);
+  Winner(this.winner, this.firstPlayer, this.secondPlayer);
   @override
   State<StatefulWidget> createState() {
-    return _WinnerState();
+    return _WinnerState(firstPlayer, secondPlayer);
   }
 }
 
 class _WinnerState extends State<Winner> {
+  final String firstPlayer, secondPlayer;
+  _WinnerState(this.firstPlayer, this.secondPlayer);
   @override
   Widget build(BuildContext context) {
     return Container(
         margin: EdgeInsets.all(40.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            widget.winner == 2
-                ? Container(
-                    child: Row(children: <Widget>[
-                    Icon(Icons.tonality, color: Colors.green, size: 30.0),
-                    Text(
-                      ' wygrało grę ',
-                      style: Theme.of(context).textTheme.body1,
-                    )
-                  ]))
-                : widget.winner == 1
-                    ? Container(
-                        child: Row(children: <Widget>[
-                        Icon(Icons.clear, color: Colors.red, size: 30.0),
-                        Text(
-                          ' wygrał grę ',
-                          style: Theme.of(context).textTheme.body1,
-                        )
-                      ]))
-                    : Text(
-                        'Nikt nie wygrał',
-                        style: Theme.of(context).textTheme.body1,
-                      )
-          ],
-        ));
+        child: widget.winner == 2
+            ? Text('Wygranym jest : $firstPlayer!')
+            : Text('Wygranym jest $secondPlayer!'));
   }
 }
