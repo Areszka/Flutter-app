@@ -16,7 +16,6 @@ class CrossPainter extends CustomPainter {
 
     if (_fraction < .5) {
       firstLine = _fraction / .5;
-      print('first line: {$firstLine}');
       secondLine = 0.0;
     } else {
       firstLine = 1.0;

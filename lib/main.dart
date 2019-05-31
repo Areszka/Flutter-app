@@ -8,7 +8,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        // brightness: Brightness.dark,
         fontFamily: 'Quicksand',
         textTheme: TextTheme(
           body1: TextStyle(fontSize: 25.0),

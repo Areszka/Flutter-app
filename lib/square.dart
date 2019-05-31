@@ -30,8 +30,8 @@ class _SquareBuild extends State<Square> {
             padding: EdgeInsets.all(25.0),
             decoration: BoxDecoration(
               border: Border(
-                bottom: BorderSide(color: bB ? Colors.black : Colors.white),
-                right: BorderSide(color: bR ? Colors.black : Colors.white),
+                bottom: BorderSide(color: bB ? Colors.black : Colors.transparent),
+                right: BorderSide(color: bR ? Colors.black : Colors.transparent),
               ),
             ),
             child: widget.board != 0 ? Shape(widget.board) : Text('')));
