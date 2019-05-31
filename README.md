@@ -1,4 +1,4 @@
-# cross
+# tic tac toe
 
 A new Flutter project.
 
