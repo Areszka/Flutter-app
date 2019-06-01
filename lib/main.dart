@@ -4,39 +4,55 @@ import './firstView.dart';
 
 main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool themeDark = false;
+  changeTheme() {
+    setState(() {
+      themeDark = !themeDark;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        // brightness: Brightness.dark,
-        fontFamily: 'Quicksand',
-        textTheme: TextTheme(
-          body1: TextStyle(fontSize: 25.0),
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          brightness: themeDark ? Brightness.dark : Brightness.light,
+          fontFamily: 'Quicksand',
+          textTheme: TextTheme(
+            body1: TextStyle(fontSize: 25.0),
+          ),
         ),
-      ),
-      home: FirstRoute(),
-    );
+        home: FirstRoute(changeTheme));
   }
 }
 
 class FirstRoute extends StatelessWidget {
+  final Function changeTheme;
+
+  FirstRoute(this.changeTheme);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FirstView(),
+      body: FirstView(changeTheme),
     );
   }
 }
 
 class SecondRoute extends StatelessWidget {
   final String firstPlayer, secondPlayer;
-  SecondRoute(this.firstPlayer, this.secondPlayer);
+  final bool isSwitched;
+  SecondRoute(this.firstPlayer, this.secondPlayer, this.isSwitched);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Board(firstPlayer, secondPlayer),
+      body: Board(firstPlayer, secondPlayer, this.isSwitched),
     );
   }
 }

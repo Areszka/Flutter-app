@@ -4,25 +4,39 @@ import './crossPainter.dart';
 import './main.dart';
 
 class FirstView extends StatefulWidget {
+  final Function changeTheme;
+  FirstView(this.changeTheme);
   @override
   _FirstViewState createState() => _FirstViewState();
 }
 
 class _FirstViewState extends State<FirstView> {
   String firstPlayer = 'kółko', secondPlayer = 'krzyzyk';
-
+  bool isSwitched = true;
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-          margin: EdgeInsets.only(top: 50),
+    return Stack(children: <Widget>[
+      Positioned(
+        top: 20,
+        right: 20,
+        child: Switch(
+            activeColor: Colors.blue,
+            activeTrackColor: Colors.blue[100],
+            value: isSwitched,
+            onChanged: (value) {
+              setState(() {
+                isSwitched = value;
+                widget.changeTheme();
+              });
+            }),
+      ),
+      Positioned(
+          bottom: 100,
           child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  // mainAxisAlignment: MainAxisAlignment.center,
+                  // crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Text('Pierwszy gracz  '),
                     CustomPaint(
@@ -33,16 +47,16 @@ class _FirstViewState extends State<FirstView> {
                     margin: EdgeInsets.all(40.0),
                     width: 300.0,
                     child: TextField(
+                      decoration: InputDecoration(hintText: 'Imię..'),
                       onChanged: (String textinput) {
                         setState(() {
                           firstPlayer = textinput;
                         });
                       },
-                      decoration: InputDecoration(hintText: 'Imię..'),
                     )),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  // mainAxisAlignment: MainAxisAlignment.center,
+                  // crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Text('Drugi gracz  '),
                     CustomPaint(
@@ -53,23 +67,23 @@ class _FirstViewState extends State<FirstView> {
                     margin: EdgeInsets.all(40.0),
                     width: 300.0,
                     child: TextField(
+                      decoration: InputDecoration(hintText: 'Imię..'),
                       onChanged: (String textinput) {
                         setState(() {
                           secondPlayer = textinput;
                         });
                       },
-                      decoration: InputDecoration(hintText: 'Imię..'),
                     )),
                 Container(
                   margin: EdgeInsets.only(top: 30.0),
                   child: RaisedButton(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50.0)),
-                    color: Colors.red[300],
+                    color: Colors.blue[500],
                     padding: EdgeInsets.only(
                         top: 8.0, right: 15.0, bottom: 8.0, left: 15.0),
-                    textColor: Colors.grey[100],
-                    highlightColor: Colors.red[400],
+                    textColor: isSwitched ? Colors.white : Colors.black,
+                    highlightColor: Colors.blue[600],
                     child: Text(
                       'Zacznij grę',
                       style: TextStyle(fontSize: 25.0, fontFamily: 'Quicksand'),
@@ -78,13 +92,13 @@ class _FirstViewState extends State<FirstView> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                SecondRoute(firstPlayer, secondPlayer)),
+                            builder: (context) => SecondRoute(
+                                firstPlayer, secondPlayer, isSwitched)),
                       );
                     },
                   ),
                 ),
-              ])),
-    );
+              ]))
+    ]);
   }
 }

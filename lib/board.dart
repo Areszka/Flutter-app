@@ -6,7 +6,8 @@ import 'dart:math';
 
 class Board extends StatefulWidget {
   final String firstPlayer, secondPlayer;
-  Board(this.firstPlayer, this.secondPlayer);
+  final bool isSwitched;
+  Board(this.firstPlayer, this.secondPlayer, this.isSwitched);
 
   _BoardState createState() => _BoardState();
 }
@@ -103,11 +104,11 @@ class _BoardState extends State<Board> {
                 },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50.0)),
-                color: Colors.red[300],
+                color: Colors.blue[500],
                 padding: EdgeInsets.only(
                     top: 8.0, right: 15.0, bottom: 8.0, left: 15.0),
-                textColor: Colors.grey[100],
-                highlightColor: Colors.red[400],
+                textColor: widget.isSwitched ? Colors.white : Colors.black,
+                highlightColor: Colors.blue[600],
                 child: Text(
                   'Nowa gra',
                   style: TextStyle(fontSize: 25.0, fontFamily: 'Quicksand'),
