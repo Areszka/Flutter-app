@@ -21,7 +21,10 @@ class _SquareBuild extends State<Square> {
     return GestureDetector(
         onTap: () {
           if (widget.board == 0) {
+            setState(() {
             widget.nextTurn(widget.id);
+              
+            });
           }
         },
         child: Container(

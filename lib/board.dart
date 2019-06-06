@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import './square.dart';
 import './WhoseTurn.dart';
 import './winner.dart';
+import './undoMoveButton.dart';
 import 'dart:math';
 
 class Board extends StatefulWidget {
@@ -17,6 +18,7 @@ class _BoardState extends State<Board> {
   int turn0, winner = 0;
 
   List<int> board = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+  final List<List<int>> moves = [[0, 0, 0, 0, 0, 0, 0, 0, 0],];
 
   void initState() {
     turn0 = _random.nextInt(2) + 1;
@@ -52,7 +54,19 @@ class _BoardState extends State<Board> {
           winner = 3;
         }
       });
+        moves.add(List.of(board));
     }
+  }
+
+  undoMove() {
+    setState(() {
+      int len = moves.length;
+      if (len > 1) {
+        board = List.of(moves[len - 2]);
+        moves.removeLast();
+        turn0 == 1 ? turn0 = 2 : turn0 = 1;
+      }
+    });
   }
 
   @override
@@ -91,29 +105,35 @@ class _BoardState extends State<Board> {
               Square(false, false, nextTurn, 8, board[8]),
             ],
           ),
-          Container(
-              margin: EdgeInsets.only(top: 40.0),
-              child: RaisedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  setState(() {
-                    turn0 = _random.nextInt(2) + 1;
-                    winner = 0;
-                    board.fillRange(0, 9, 0);
-                  });
-                },
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50.0)),
-                color: Colors.blue[500],
-                padding: EdgeInsets.only(
-                    top: 8.0, right: 15.0, bottom: 8.0, left: 15.0),
-                textColor: widget.isSwitched ? Colors.white : Colors.black,
-                highlightColor: Colors.blue[600],
-                child: Text(
-                  'Nowa gra',
-                  style: TextStyle(fontSize: 25.0, fontFamily: 'Quicksand'),
-                ),
-              )),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                  margin: EdgeInsets.only(top: 40.0),
+                  child: RaisedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      setState(() {
+                        turn0 = _random.nextInt(2) + 1;
+                        winner = 0;
+                        board.fillRange(0, 9, 0);
+                      });
+                    },
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50.0)),
+                    color: Colors.blue[500],
+                    padding: EdgeInsets.only(
+                        top: 8.0, right: 15.0, bottom: 8.0, left: 15.0),
+                    textColor: widget.isSwitched ? Colors.white : Colors.black,
+                    highlightColor: Colors.blue[600],
+                    child: Text(
+                      'Nowa gra',
+                      style: TextStyle(fontSize: 25.0, fontFamily: 'Quicksand'),
+                    ),
+                  )),
+              UndoButton(widget.isSwitched, undoMove, winner),
+            ],
+          ),
         ]);
   }
 }
